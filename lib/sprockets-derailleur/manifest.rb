@@ -98,7 +98,7 @@ module Sprockets
             time = Benchmark.measure do
               data = {'assets' => {}, 'files' => {}, 'errors' => {}}
 
-              if asset = find_asset(path)
+              if asset = environment.find_asset(path)
 
                 data['files'][asset.digest_path] = {
                   'logical_path' => asset.logical_path,
@@ -115,7 +115,7 @@ module Sprockets
                 else
                   logger.debug "Writing #{target}"
                   asset.write_to target
-                  asset.write_to "#{target}.gz" if asset.is_a?(BundledAsset)
+                  # asset.write_to "#{target}.gz" if asset.is_a?(BundledAsset)
                 end
 
                 Marshal.dump(data, child_write)
